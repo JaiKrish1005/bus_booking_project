@@ -1,0 +1,33 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">My Bookings</h1>
+    <div class="bookings-list">
+        {% for booking in bookings %}
+            <div class="card booking-card mb-3">
+                <div class="card-body">
+                    <h2 class="card-title">{{ booking.bus.name }}</h2>
+                    <div class="route mb-2">
+                        <span class="source badge bg-primary text-white">{{ booking.bus.source }}</span>
+                        <span class="arrow mx-2">→</span>
+                        <span class="destination badge bg-success text-white">{{ booking.bus.destination }}</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Date:</strong> {{ booking.bus.date }}</p>
+                        <p><strong>Time:</strong> {{ booking.bus.time }}</p>
+                        <p><strong>Seats Booked:</strong> {{ booking.num_seats }}</p>
+                        <p><strong>Booking Date:</strong> {{ booking.booking_date }}</p>
+                        <p><strong>Total Price:</strong> ₹{{ booking.total_price }}</p>
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this booking?')">Cancel Booking</a>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center">You haven't made any bookings yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}  

@@ -1,0 +1,36 @@
+{% extends 'booking/base.html' %}
+
+{% block title %}Home - Bus Booking System{% endblock %}
+
+{% block content %}
+<div class="hero bg-primary text-white text-center py-5">
+    <h1>Welcome to BusBooking</h1>
+    <p class="lead">Book your bus tickets easily and conveniently.</p>
+</div>
+
+<div class="container my-5">
+    <h2 class="text-center">Available Buses</h2>
+    <div class="row">
+        {% for bus in buses %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ bus.name }}</h5>
+                        <p class="card-text">
+                            <strong>From:</strong> {{ bus.source }}<br>
+                            <strong>To:</strong> {{ bus.destination }}<br>
+                            <strong>Date:</strong> {{ bus.date }}<br>
+                            <strong>Time:</strong> {{ bus.time }}<br>
+                            <strong>Available Seats:</strong> {{ bus.available_seats }}<br>
+                            <strong>Price:</strong> ₹{{ bus.price }}
+                        </p>
+                        <a href="{% url 'bus_detail' bus.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="col-12 text-center">No buses available at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

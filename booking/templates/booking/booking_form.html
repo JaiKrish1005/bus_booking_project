@@ -1,0 +1,26 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+{% load custom_filters %}
+<div class="booking-form container mt-5">
+    <h1 class="text-center">Book Tickets</h1>
+    <div class="bus-info mb-4">
+        <h2>{{ bus.name }}</h2>
+        <p><strong>From:</strong> {{ bus.source }} <strong>To:</strong> {{ bus.destination }}</p>
+        <p><strong>Date:</strong> {{ bus.date }} <strong>Time:</strong> {{ bus.time }}</p>
+        <p><strong>Available Seats:</strong> {{ bus.available_seats }}</p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="{{ form.num_seats.id_for_label }}" class="form-label">Number of Seats</label>
+            {{ form.num_seats|add_class:"form-control" }}
+            {% if form.num_seats.errors %}
+                <div class="text-danger">{{ form.num_seats.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="btn btn-primary w-100">Book</button>
+    </form>
+</div>
+{% endblock %}
